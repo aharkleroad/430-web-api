@@ -1,0 +1,25 @@
+{
+  "name": "http-api-assignment-ii",
+  "version": "1.0.0",
+  "description": "Second HTTP API assignment",
+  "homepage": "https://github.com/aharkleroad/http-api-assignment-ii#readme",
+  "bugs": {
+    "url": "https://github.com/aharkleroad/http-api-assignment-ii/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aharkleroad/http-api-assignment-ii.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Aizlynn Harkleroad",
+  "type": "commonjs",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "echo \"Tests complete\"",
+    "pretest": "eslint ./src --fix",
+    "start": "node ./src/server.js"
+  },
+  "devDependencies": {
+    "eslint": "^10.0.0"
+  }
+}
