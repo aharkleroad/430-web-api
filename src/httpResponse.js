@@ -3,20 +3,22 @@ const fs = require('fs');
 const index = fs.readFileSync(`${__dirname}/../client/client.html`);
 const css = fs.readFileSync(`${__dirname}/../client/style.css`);
 
-const getIndex = (request, response) => {
+// check when a response head needs a message
+const httpResponses = (request, response, content, type) => {
     response.writeHead(200, {
-        'Content-Type': 'text/html'
+        'Content-Type': type,
+        'Content-Length': Buffer.byteLength(content, 'utf8')
     });
-    response.write(index);
+    response.write(content);
     response.end();
 }
 
+const getIndex = (request, response) => {
+    httpResponses(request, response, index, 'text/html');
+}
+
 const getCss = (request, response) => {
-    response.writeHead(200, {
-        'Content-Type': 'text/css'
-    });
-    response.write(css);
-    response.end();
+    httpResponses(request, response, css, 'text/css');
 }
 
 module.exports = {

@@ -1,16 +1,52 @@
 const http = require('http');
+const query = require('querystring');
 const httpHandler = require('./httpResponse.js');
+const jsonHandler = require('./jsonResponse.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
     '/': httpHandler.getIndex,
     '/style.css': httpHandler.getCss,
-    default: httpHandler.getIndex
+    '/getUsers': jsonHandler.getUsers,
+    default: jsonHandler.notReal
+}
+
+const parseBody = (request, response, handler) => {
+    const requestBody = [];
+
+    request.on('error', (err) => {
+        console.dir(err);
+        response.statusCode = 400;
+        response.end();
+    });
+
+    request.on('data', (dataPiece) => {
+        requestBody.push(dataPiece);
+    });
+
+    request.on('end', () => {
+        const bodyString = Buffer.concat(requestBody).toString();
+        
+        if (request.headers['content-type'] === 'application/json'){
+            request.body = JSON.parse(bodyString);
+        }
+        else {
+            response.writeHead(400, {
+                'Content-type': 'application/json'
+            });
+            response.write(JSON.stringify({error: 'Invalid data format'}));
+            response.end();
+        }
+
+        handler(request, response);
+    });
 }
 
 // responds to POST requests made to the server
 const handlePostRequests = (request, response, url) => {
-
+    if (url.pathname === '/addUser') {
+        parseBody(request, response, jsonHandler.addUser);
+    }
 }
 
 // responds to other (GET & HEAD) requests made to the server
