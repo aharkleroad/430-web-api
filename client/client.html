@@ -5,6 +5,25 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    const init = () => {
+      const addUserForm = document.querySelector("#nameform");
+      const getPageForm = document.querySelector("#userform");
+
+      const addUser = (e) => {
+        e.preventDefault();
+        e.SendPost();
+        return false;
+      }
+
+      const fetchPage = (e) => {
+        e.preventDefault();
+        // e.SendPost();
+        return false;
+      }
+
+      addUserForm.addEventListener('submit', addUser);
+      getPageForm.addEventListener('submit', fetchPage);
+    }
 
   </script>
 </head>

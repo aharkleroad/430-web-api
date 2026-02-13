@@ -50,8 +50,8 @@ const handlePostRequests = (request, response, url) => {
 }
 
 // responds to other (GET & HEAD) requests made to the server
-const handleOtherRequests = (request, response, url) => {
-    const handler = urlStruct[url.pathname];
+const handleOtherRequests = (request, response, parsedURL) => {
+    const handler = urlStruct[parsedURL.pathname];
     if (handler) {
         handler(request, response);
     }
@@ -63,7 +63,7 @@ const handleOtherRequests = (request, response, url) => {
 const onRequest = (request, response) => {
     // get url
     const protocol = request.connection.encrypted ? 'https' : 'http';
-    const parsedURL = new URL(`${protocol}://${request.headers.host}`);
+    const parsedURL = new URL(request.url, `${protocol}://${request.headers.host}`);
 
     // check what kind of request
     if (request.method === 'POST'){
