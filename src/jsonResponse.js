@@ -1,49 +1,43 @@
 const users = {};
 
-const jsonResponses = (request, response, status, content, message) => {
-    // add header info
-    if (request.method === 'HEAD') {
+// creates and sends all json-based responses
+const jsonResponses = (request, response, status, content) => {
     response.writeHead(status, {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(content, 'utf8')
     });
-}
-    // if request is a get request, add body and error message
-    else {
-        // check if I can avoid redefining everything
-        response.writeHead(status, message, {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(content, 'utf8')
-        });
+    // add a body only if the request should have a body
+    if (request.method !== 'HEAD' && status !== 204) {
         response.write(content);
     }
     // send response
     response.end();
 }
 
+// sends user data as a response
 const getUsers = (request, response) => {
-    let message = "Sucess";
-    message = JSON.stringify({message});
-    jsonResponses(request, response, 200, JSON.stringify({users}), message);
+    jsonResponses(request, response, 200, JSON.stringify({users}));
 }
 
+// sends a 404 error message as a response
 const notReal = (request, response) => {
     let message = "The page you are looking for was not found";
     let id = "notFound";
     message = JSON.stringify({message, id});
     // no real content
-    jsonResponses(request, response, 404, message, message);
+    jsonResponses(request, response, 404, message);
 }
 
+// adds or modifies user data and sends an appropriate response
 const addUser = (request, response) => {
     let message = "Name and age are both required";
-    const {name, age} = response.body;
+    const {name, age} = request.body;
 
-    // missing name or body parameters
+    // responds if request is missing name or body parameters
     if (!name || !age) {
         const id = "missingParams";
         message = JSON.stringify({message, id})
-        jsonResponses(request, response, 400, message, message);
+        return jsonResponses(request, response, 400, message);
     }
 
     let responseCode = 204;
@@ -54,13 +48,14 @@ const addUser = (request, response) => {
     }
     users[name].age = age;
 
+    // responds if a new user has been created
     if (responseCode == 201) {
         message = "Created successfully";
         message = JSON.stringify({message});
-        return jsonResponses(request, response, responseCode, message, message);
+        return jsonResponses(request, response, responseCode, message);
     }
-
-    return jsonResponses(request, response, responseCode, {}, {});
+    // responds if a user has been modified
+    jsonResponses(request, response, responseCode, JSON.stringify({message}));
 }
 
 module.exports = {

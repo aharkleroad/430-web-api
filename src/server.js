@@ -1,5 +1,4 @@
 const http = require('http');
-const query = require('querystring');
 const httpHandler = require('./httpResponse.js');
 const jsonHandler = require('./jsonResponse.js');
 
@@ -11,19 +10,23 @@ const urlStruct = {
     default: jsonHandler.notReal
 }
 
+// parses request bodies sent to the server
 const parseBody = (request, response, handler) => {
     const requestBody = [];
 
+    // responds if there is an error while parsing
     request.on('error', (err) => {
         console.dir(err);
         response.statusCode = 400;
         response.end();
     });
 
+    // adds saves data if body data is recieved
     request.on('data', (dataPiece) => {
         requestBody.push(dataPiece);
     });
 
+    // sends an appropriate response (if possible) when all body data has been retrieved
     request.on('end', () => {
         const bodyString = Buffer.concat(requestBody).toString();
         
@@ -60,6 +63,7 @@ const handleOtherRequests = (request, response, parsedURL) => {
     }
 }
 
+// sends requests to the right handler when they are recieved by the server
 const onRequest = (request, response) => {
     // get url
     const protocol = request.connection.encrypted ? 'https' : 'http';
