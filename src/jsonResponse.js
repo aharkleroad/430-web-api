@@ -1,5 +1,17 @@
 const users = {};
 
+/*
+    Get all books
+Filter by:
+    genre
+    language
+    year (plus ability to do start and end date)
+    author
+    length
+Add book
+Review book
+*/
+
 // creates and sends all json-based responses
 const jsonResponses = (request, response, status, content) => {
     response.writeHead(status, {

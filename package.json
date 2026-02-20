@@ -17,11 +17,21 @@
   "scripts": {
     "test": "echo \"Tests complete\"",
     "pretest": "eslint ./src --fix",
-    "start": "node ./src/server.js"
+    "start": "node ./src/server.js",
+    "nodemon": "nodemon -e js,ts,css,html --watch ./hosted ./src/server.js",
+    "buildBundle": "webpack",
+    "watchBundle": "webpack watch",
+    "heroku-postbuild": "webpack --mode production"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^25.3.0",
     "eslint": "^10.0.0",
-    "globals": "^17.3.0"
+    "globals": "^17.3.0",
+    "ts-loader": "^9.5.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "webpack": "^5.105.2",
+    "webpack-cli": "^6.0.1"
   }
 }

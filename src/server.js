@@ -6,6 +6,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
     '/': httpHandler.getIndex,
     '/style.css': httpHandler.getCss,
+    '/bundle.js': httpHandler.getBundle,
     '/getUsers': jsonHandler.getUsers,
     default: jsonHandler.notReal
 }
