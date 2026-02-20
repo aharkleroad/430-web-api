@@ -7,7 +7,8 @@ const urlStruct = {
     '/': httpHandler.getIndex,
     '/style.css': httpHandler.getCss,
     '/bundle.js': httpHandler.getBundle,
-    '/getUsers': jsonHandler.getUsers,
+    '/getBooks': jsonHandler.getBooks,
+    '/getAuthor': jsonHandler.getAuthor,
     default: jsonHandler.notReal
 }
 

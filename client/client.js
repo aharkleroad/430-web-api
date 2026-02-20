@@ -26,14 +26,7 @@ const handleResponse = async (response, method) => {
     // only gets the response body (and displays something from it) if the response has a body
     if (method === "get" || (method === "post" && response.status !== 204)) {
         const responseText = await response.json();
-        console.log(responseText);
-        // displays if request was made to get users
-        if (responseText.users) {
-            content.innerHTML += `<p>${JSON.stringify(responseText.users)}</p>`;
-        }
-        else if (responseText.message) {
-            content.innerHTML += `<p>Message: ${JSON.stringify(responseText.message)}</p>`;
-        }
+        content.innerHTML += `<p>${JSON.stringify(responseText)}</p>`;
     }
 }
 
@@ -62,12 +55,24 @@ const sendPost = async (formName) => {
 }
 
 // sends a get or head request to a given page based on form data
-const sendGetOrHead = async () => {
-    const url = document.querySelector("#urlField").value;
-    const method = document.querySelector("#methodSelect").value;
+const requestAllBooksData = async () => {
+    // const url = formName.getAttribute('action');
+    const method = document.querySelector("#allMethodSelect").value;
 
     // send fetch request w/ retrieved form data
-    const response = await fetch(url, {
+    const response = await fetch('/getBooks', {
+        method: method,
+    });
+
+    handleResponse(response, method);
+}
+
+const requestAuthorData = async () => {
+    const method = document.querySelector("#authorMethodSelect").value;
+    const author = document.querySelector("#authorField").value;
+
+    // send fetch request w/ retrieved form data
+    const response = await fetch('/getAuthor', {
         method: method,
     });
 
@@ -76,23 +81,29 @@ const sendGetOrHead = async () => {
 
 // adds submit event listeners to both forms
 const init = () => {
-    const addUserForm = document.querySelector("#nameForm");
-    const getPageForm = document.querySelector("#userForm");
+    const getBooksForm = document.querySelector("#allBooksForm");
+    const getPageForm = document.querySelector("#addBookForm");
 
-    const addUser = (e) => {
+    const addBook = (e) => {
         e.preventDefault();
         sendPost(addUserForm);
         return false;
     }
 
-    const fetchPage = (e) => {
+    const getAllBooks = (e) => {
         e.preventDefault();
-        sendGetOrHead();
+        requestAllBooksData();
         return false;
     }
 
-    addUserForm.addEventListener('submit', addUser);
-    getPageForm.addEventListener('submit', fetchPage);
+    const getAuthorBooks = (e) => {
+        e.preventDefault();
+        requestAllBooksData();
+        return false;
+    }
+
+    getBooksForm.addEventListener('submit', getAllBooks);
+    getPageForm.addEventListener('submit', addBook);
 }
 
 window.onload = init;

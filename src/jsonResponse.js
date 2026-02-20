@@ -28,8 +28,13 @@ const jsonResponses = (request, response, status, content) => {
 }
 
 // sends user data as a response
-const getUsers = (request, response) => {
-    jsonResponses(request, response, 200, JSON.stringify({users}));
+const getBooks = (request, response) => {
+    jsonResponses(request, response, 200, JSON.stringify(bookJSON));
+}
+
+const getAuthor = (request, response) => {
+    const name = request.query.name;
+    jsonResponses(request, response, 200, JSON.stringify(bookJSON.author[name]));
 }
 
 // sends a 404 error message as a response
@@ -72,7 +77,7 @@ const addUser = (request, response) => {
 }
 
 module.exports = {
-    getUsers,
+    getBooks,
     notReal,
     addUser
 }
