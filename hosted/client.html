@@ -9,24 +9,92 @@
 
 <body>
   <section id="top">
-    <h3>POST Status Code Tests</h3>
-    <form id="nameForm" action="/addUser" method="post">
-      <label for="name">Name: </label>
-      <input id="nameField" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="ageField" type="number" name="age" min="0" max="100" step="1" />
-      <input type="submit" value="Add User" />
-    </form>
-    <form id="userForm" action="/getUsers" method="get">
-      <select id='urlField'>
-        <option value='/getUsers'>/getUsers</option>
-        <option value='/notReal'>/notReal</option>
-      </select>
+    <h3>Book API Test App</h3>
+    <form id="allBooksForm" action="/getBooks" method="get">
       <select id="methodSelect">
         <option value="get">GET</option>
         <option value="head">HEAD</option>
       </select>
-      <input type="submit" value="Get User" />
+      <input type="submit" value="Get Books" />
+    </form>
+
+    <form id="authorForm" action="/getAuthor" method="get">
+      <label for="author">Author: </label>
+      <input id="authorField" type="text" name="author" />
+
+      <select id="methodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input type="submit" value="Get Author" />
+    </form>
+
+    <form id="yearForm" action="/getYear" method="get">
+      <label for="start">Start (or Only) Year: </label>
+      <input id="startField" type="number" name="start" min="-3000" max="2026" step="1" />
+
+      <label for="end">End Year: </label>
+      <input id="endField" type="number" name="end" min="-2999" max="2026" step="1" />
+
+      <select id="methodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input type="submit" value="Get Author" />
+    </form>
+
+    <form id="genreForm" action="/getGenre" method="get">
+      <label for="genre">Language: </label>
+      <input id="genreField" type="text" name="genre" />
+
+      <select id="methodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input type="submit" value="Get Genre" />
+    </form>
+
+    <form id="languageForm" action="/getLanguage" method="get">
+      <label for="language">Language: </label>
+      <input id="languageField" type="text" name="language" />
+
+      <select id="methodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input type="submit" value="Get Language" />
+    </form>
+
+    <form id="addBookForm" action="/addBook" method="post">
+      <label for="title">Title: </label>
+      <input id="titleField" type="text" name="title" />
+
+      <label for="author">Author: </label>
+      <input id="authorField" type="text" name="author" />
+
+      <label for="language">Language: </label>
+      <input id="languageField" type="text" name="language" />
+
+      <label for="date">Date Published: </label>
+      <input id="dateField" type="number" name="date" min="-3000" max="2026" step="1" />
+
+      <label for="genre">Genre: </label>
+      <input id="genreField" type="text" name="genre" />
+
+      <input type="submit" value="Add Book" />
+    </form>
+
+    <form id="reviewBookForm" action="/reviewBook" method="post">
+      <label for="title">Title: </label>
+      <input id="titleField" type="text" name="title" />
+
+      <label for="author">Author: </label>
+      <input id="authorField" type="text" name="author" />
+
+      <label for="rating">Rating: </label>
+      <input id="ratingField" type="number" name="rating" min="0" max="10" step="0.5" />
+
+      <input type="submit" value="Add Book" />
     </form>
   </section>
   <section id="content">

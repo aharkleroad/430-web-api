@@ -1,4 +1,6 @@
-const users = {};
+const path = require('path');
+const jsonPath = path.join(__dirname, '../data', 'books.json');
+const bookJSON = require(jsonPath);
 
 /*
     Get all books
@@ -7,7 +9,6 @@ Filter by:
     language
     year (plus ability to do start and end date)
     author
-    length
 Add book
 Review book
 */
