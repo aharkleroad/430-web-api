@@ -9,6 +9,7 @@ const urlStruct = {
     '/bundle.js': httpHandler.getBundle,
     '/getBooks': jsonHandler.getBooks,
     '/getAuthor': jsonHandler.getAuthor,
+    '/getLanguage': jsonHandler.getLanguage,
     default: jsonHandler.notReal
 }
 
@@ -49,8 +50,8 @@ const parseBody = (request, response, handler) => {
 
 // responds to POST requests made to the server
 const handlePostRequests = (request, response, url) => {
-    if (url.pathname === '/addUser') {
-        parseBody(request, response, jsonHandler.addUser);
+    if (url.pathname === '/addBook') {
+        parseBody(request, response, jsonHandler.addBook);
     }
 }
 
@@ -71,8 +72,6 @@ const onRequest = (request, response) => {
     const protocol = request.connection.encrypted ? 'https' : 'http';
     const parsedURL = new URL(request.url, `${protocol}://${request.headers.host}`);
     request.query = Object.fromEntries(parsedURL.searchParams);
-    console.log(request.query);
-    console.log(request.query.author);
 
     // check what kind of request
     if (request.method === 'POST'){

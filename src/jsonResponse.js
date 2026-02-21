@@ -44,6 +44,17 @@ const getAuthor = (request, response) => {
     }
 }
 
+const getLanguage = (request, response) => {
+    // ensures an author is given
+    if (request.query.language){
+        const languageBooks = helper.iterateThroughJSON(bookJSON, "language", request.query.language);
+        // if that author appears in the list, send a request
+        if (languageBooks.length != 0){
+            jsonResponses(request, response, 200, JSON.stringify(languageBooks));
+        }
+    }
+}
+
 // sends a 404 error message as a response
 const notReal = (request, response) => {
     let message = "The page you are looking for was not found";
@@ -54,7 +65,7 @@ const notReal = (request, response) => {
 }
 
 // adds or modifies user data and sends an appropriate response
-const addUser = (request, response) => {
+const addBook = (request, response) => {
     let message = "Name and age are both required";
     const {name, age} = request.body;
 
@@ -86,6 +97,7 @@ const addUser = (request, response) => {
 module.exports = {
     getBooks,
     getAuthor,
+    getLanguage,
     notReal,
-    addUser
+    addBook
 }
