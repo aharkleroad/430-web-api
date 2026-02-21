@@ -72,7 +72,7 @@ const requestAuthorData = async () => {
     const author = document.querySelector("#authorField").value;
 
     // send fetch request w/ retrieved form data
-    const response = await fetch('/getAuthor', {
+    const response = await fetch(`/getAuthor?author=${author}`, {
         method: method,
     });
 
@@ -82,13 +82,9 @@ const requestAuthorData = async () => {
 // adds submit event listeners to both forms
 const init = () => {
     const getBooksForm = document.querySelector("#allBooksForm");
-    const getPageForm = document.querySelector("#addBookForm");
+    const getAuthorForm = document.querySelector("#authorForm");
 
-    const addBook = (e) => {
-        e.preventDefault();
-        sendPost(addUserForm);
-        return false;
-    }
+    const getPageForm = document.querySelector("#addBookForm");
 
     const getAllBooks = (e) => {
         e.preventDefault();
@@ -98,11 +94,19 @@ const init = () => {
 
     const getAuthorBooks = (e) => {
         e.preventDefault();
-        requestAllBooksData();
+        requestAuthorData();
+        return false;
+    }
+
+     const addBook = (e) => {
+        e.preventDefault();
+        sendPost(addUserForm);
         return false;
     }
 
     getBooksForm.addEventListener('submit', getAllBooks);
+    getAuthorForm.addEventListener('submit', getAuthorBooks);
+
     getPageForm.addEventListener('submit', addBook);
 }
 

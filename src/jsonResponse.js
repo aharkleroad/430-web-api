@@ -1,3 +1,4 @@
+const helper = require('./helper.js');
 const path = require('path');
 const jsonPath = path.join(__dirname, '../data', 'books.json');
 const bookJSON = require(jsonPath);
@@ -33,8 +34,14 @@ const getBooks = (request, response) => {
 }
 
 const getAuthor = (request, response) => {
-    const name = request.query.name;
-    jsonResponses(request, response, 200, JSON.stringify(bookJSON.author[name]));
+    // ensures an author is given
+    if (request.query.author){
+        const authorWorks = helper.iterateThroughJSON(bookJSON, "author", request.query.author);
+        // if that author appears in the list, send a request
+        if (authorWorks.length != 0){
+            jsonResponses(request, response, 200, JSON.stringify(authorWorks));
+        }
+    }
 }
 
 // sends a 404 error message as a response
@@ -78,6 +85,7 @@ const addUser = (request, response) => {
 
 module.exports = {
     getBooks,
+    getAuthor,
     notReal,
     addUser
 }

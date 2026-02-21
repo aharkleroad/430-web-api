@@ -70,6 +70,9 @@ const onRequest = (request, response) => {
     // get url
     const protocol = request.connection.encrypted ? 'https' : 'http';
     const parsedURL = new URL(request.url, `${protocol}://${request.headers.host}`);
+    request.query = Object.fromEntries(parsedURL.searchParams);
+    console.log(request.query);
+    console.log(request.query.author);
 
     // check what kind of request
     if (request.method === 'POST'){
