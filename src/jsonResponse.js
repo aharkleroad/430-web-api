@@ -34,14 +34,28 @@ const getBooks = (request, response) => {
 }
 
 const getAuthor = (request, response) => {
+    let statusCode = 400;
+    let message = "Author query parameter is required";
+    let id = "missingParams";
+    let content = {message, id};
+
     // ensures an author is given
     if (request.query.author){
         const authorWorks = helper.iterateThroughJSON(bookJSON, "author", request.query.author);
         // if that author appears in the list, send a request
         if (authorWorks.length != 0){
-            jsonResponses(request, response, 200, JSON.stringify(authorWorks));
+            statusCode = 200;
+            content = authorWorks;
+            // return jsonResponses(request, response, 200, JSON.stringify(authorWorks));
+        }
+        else {
+            statusCode = 404;
+            content.message = "No author with that name found";
+            content.id = "notFound";
         }
     }
+
+    jsonResponses(request, response, statusCode, JSON.stringify(content));
 }
 
 const getLanguage = (request, response) => {
@@ -51,6 +65,17 @@ const getLanguage = (request, response) => {
         // if that author appears in the list, send a request
         if (languageBooks.length != 0){
             jsonResponses(request, response, 200, JSON.stringify(languageBooks));
+        }
+    }
+}
+
+const getGenre = (request, response) => {
+    // ensures an author is given
+    if (request.query.genre){
+        const genreBooks = helper.iterateThroughNestedJSON(bookJSON, "genres", request.query.genre);
+        // if that author appears in the list, send a request
+        if (genreBooks.length != 0){
+            jsonResponses(request, response, 200, JSON.stringify(genreBooks));
         }
     }
 }
@@ -78,11 +103,11 @@ const addBook = (request, response) => {
 
     let responseCode = 204;
     // create user if they don't already exist
-    if (!users[name]){
-        responseCode = 201;
-        users[name] = {name: name,};
-    }
-    users[name].age = age;
+    // if (!users[name]){
+    //     responseCode = 201;
+    //     users[name] = {name: name,};
+    // }
+    // users[name].age = age;
 
     // responds if a new user has been created
     if (responseCode == 201) {
@@ -98,6 +123,7 @@ module.exports = {
     getBooks,
     getAuthor,
     getLanguage,
+    getGenre,
     notReal,
     addBook
 }

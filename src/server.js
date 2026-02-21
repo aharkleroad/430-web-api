@@ -10,6 +10,8 @@ const urlStruct = {
     '/getBooks': jsonHandler.getBooks,
     '/getAuthor': jsonHandler.getAuthor,
     '/getLanguage': jsonHandler.getLanguage,
+    '/getYear': jsonHandler.getYear,
+    '/getGenre': jsonHandler.getGenre,
     default: jsonHandler.notReal
 }
 

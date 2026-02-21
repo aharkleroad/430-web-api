@@ -91,13 +91,28 @@ const requestLanguageData = async () => {
     handleResponse(response, method);
 }
 
+const requestGenreData = async () => {
+    const method = document.querySelector("#genreMethodSelect").value;
+    const genre = document.querySelector("#genreField").value;
+
+    // send fetch request w/ retrieved form data
+    const response = await fetch(`/getGenre?genre=${genre}`, {
+        method: method,
+    });
+
+    handleResponse(response, method);
+}
+
 // adds submit event listeners to both forms
 const init = () => {
     const getBooksForm = document.querySelector("#allBooksForm");
     const getAuthorForm = document.querySelector("#authorForm");
     const getLanguageForm = document.querySelector("#languageForm");
+    const getYearForm = document.querySelector("#yearForm");
+    const getGenreForm = document.querySelector("#genreForm");
 
-    const getPageForm = document.querySelector("#addBookForm");
+    const addBookForm = document.querySelector("#addBookForm");
+    const addReviewForm = document.querySelector("#reviewForm");
 
     const getAllBooks = (e) => {
         e.preventDefault();
@@ -117,6 +132,12 @@ const init = () => {
         return false;
     }
 
+    const getGenreBooks = (e) => {
+        e.preventDefault();
+        requestGenreData();
+        return false;
+    }
+
      const addBook = (e) => {
         e.preventDefault();
         sendPost(addUserForm);
@@ -126,8 +147,9 @@ const init = () => {
     getBooksForm.addEventListener('submit', getAllBooks);
     getAuthorForm.addEventListener('submit', getAuthorBooks);
     getLanguageForm.addEventListener('submit', getLanguageBooks);
+    getGenreForm.addEventListener('submit', getGenreBooks);
 
-    getPageForm.addEventListener('submit', addBook);
+    addBookForm.addEventListener('submit', addBook);
 }
 
 window.onload = init;
