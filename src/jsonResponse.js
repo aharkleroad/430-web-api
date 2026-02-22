@@ -177,7 +177,7 @@ const addBook = (request, response) => {
         if (bookList.length === 0) {
             statusCode = 201;
             content = { title, author, language, year, genre }
-            bookJSON += content;
+            bookJSON.push(content);
         }
         else {
             helper.updateJSON(bookJSON, 'title', request.query[title], { title, author, language, year, genre })
@@ -205,7 +205,7 @@ const addReview = (request, response) => {
 
     // responds if request is missing name or body parameters
     if (title && review) {
-        let statusCode = 204;
+        statusCode = 204;
         const bookList = helper.iterateThroughJSON(bookJSON, 'title', request.query[title]);
         // create book if it doesn't already exist
         if (bookList.length === 0) {
@@ -214,7 +214,7 @@ const addReview = (request, response) => {
             content.id = "notFound";
         }
         else {
-            helper.updateJSON(bookJSON, 'title', request.query[title], { title, rating });
+            helper.updateJSON(bookJSON, 'title', request.query[title], { title, review });
             message = "Created successfully";
             content = {message};
         }
