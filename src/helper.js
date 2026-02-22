@@ -11,6 +11,19 @@ const iterateThroughJSON = (jsonObj, objKey, objValue) => {
     return returnArray;
 }
 
+const findNumericRangeJSON = (jsonObj, objKey, smallerValue, greaterValue) => {
+    let returnArray = [];
+    for (let i = 0; i < jsonObj.length; i++){
+        if (jsonObj[i][objKey]) {
+            if (jsonObj[i][objKey] <= greaterValue && jsonObj[i][objKey] >= smallerValue){
+                returnArray.push(jsonObj[i]);
+            }
+        }
+    }
+
+    return returnArray;
+}
+
 const iterateThroughNestedJSON = (jsonObj, objKey, objValue) => {
     let returnArray = [];
     for (let i = 0; i < jsonObj.length; i++){
@@ -28,5 +41,6 @@ const iterateThroughNestedJSON = (jsonObj, objKey, objValue) => {
 
 module.exports = {
     iterateThroughJSON,
+    findNumericRangeJSON,
     iterateThroughNestedJSON
 }
