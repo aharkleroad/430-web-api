@@ -18,6 +18,17 @@
       <input type="submit" value="Get Books" />
     </form>
 
+    <form id="titleForm" action="/getTitle" method="get">
+      <label for="title">Title: </label>
+      <input id="titleField" type="text" name="title" />
+
+      <select id="titleMethodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input type="submit" value="Get Title" />
+    </form>
+
     <form id="authorForm" action="/getAuthor" method="get">
       <label for="author">Author: </label>
       <input id="authorField" type="text" name="author" />
@@ -30,8 +41,8 @@
     </form>
 
     <form id="yearForm" action="/getYear" method="get">
-      <label for="start">Start (or Only) Year: </label>
-      <input id="startField" type="number" name="start" min="-3000" max="2026" step="1" />
+      <label for="year">Start (or Only) Year: </label>
+      <input id="yearField" type="number" name="year" min="-3000" max="2026" step="1" />
 
       <label for="end">End Year: </label>
       <input id="endField" type="number" name="end" min="-2999" max="2026" step="1" />
@@ -65,7 +76,7 @@
       <input type="submit" value="Get Language" />
     </form>
 
-    <form id="addBookForm" action="/addBook" method="post">
+    <form id="addBookForm" action="/addBook" method="POST">
       <label for="title">Title: </label>
       <input id="addTitleField" type="text" name="title" />
 
@@ -84,12 +95,9 @@
       <input type="submit" value="Add Book" />
     </form>
 
-    <form id="reviewBookForm" action="/reviewBook" method="post">
+    <form id="reviewBookForm" action="/reviewBook" method="POST">
       <label for="title">Title: </label>
       <input id="reviewTitleField" type="text" name="title" />
-
-      <label for="author">Author: </label>
-      <input id="reviewAuthorField" type="text" name="author" />
 
       <label for="rating">Rating: </label>
       <input id="ratingField" type="number" name="rating" min="0" max="10" step="0.5" />

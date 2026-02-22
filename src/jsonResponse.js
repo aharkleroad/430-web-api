@@ -22,23 +22,23 @@ const getBooks = (request, response) => {
     jsonResponses(request, response, 200, JSON.stringify(bookJSON));
 }
 
-const getAuthor = (request, response) => {
+const getBasicList = (request, response, paramName, notFoundMessage) => {
     let statusCode = 400;
-    let message = "Author query parameter is required";
+    let message = `${paramName} query parameter is required`;
     let id = "missingParams";
     let content = { message, id };
 
     // ensures an author is given
-    if (request.query.author) {
-        const authorWorks = helper.iterateThroughJSON(bookJSON, "author", request.query.author);
+    if (request.query[paramName]) {
+        const bookList = helper.iterateThroughJSON(bookJSON, paramName, request.query[paramName]);
         // if that author appears in the list, send a request
-        if (authorWorks.length != 0) {
+        if (bookList.length != 0) {
             statusCode = 200;
-            content = authorWorks;
+            content = bookList;
         }
         else {
             statusCode = 404;
-            content.message = "No books by that author found";
+            content.message = notFoundMessage;
             content.id = "notFound";
         }
     }
@@ -46,28 +46,16 @@ const getAuthor = (request, response) => {
     jsonResponses(request, response, statusCode, JSON.stringify(content));
 }
 
+const getTitle = (request, response) => {
+    getBasicList(request, response, "title", "No books with that title found");
+}
+
+const getAuthor = (request, response) => {
+    getBasicList(request, response, "author", "No books by that author found");
+}
+
 const getLanguage = (request, response) => {
-    let statusCode = 400;
-    let message = "Language query parameter is required";
-    let id = "missingParams";
-    let content = { message, id };
-
-    // ensures an author is given
-    if (request.query.language) {
-        const languageBooks = helper.iterateThroughJSON(bookJSON, "language", request.query.language);
-        // if that author appears in the list, send a request
-        if (languageBooks.length != 0) {
-            statusCode = 200;
-            content = languageBooks;
-        }
-        else {
-            statusCode = 404;
-            content.message = "No books written in that language";
-            content.id = "notFound";
-        }
-    }
-
-    jsonResponses(request, response, statusCode, JSON.stringify(content));
+    getBasicList(request, response, "language", "No books written in that language found");
 }
 
 const getYear = (request, response) => {
@@ -76,21 +64,23 @@ const getYear = (request, response) => {
     let id = "missingParams";
     let content = { message, id };
 
-    // ensures an author is given
-    if (request.query.start) {
+    // ensures a start date is given
+    if (request.query.year) {
         let yearBooks;
+        // checks if an end date was given too
         if (request.query.end) {
-            if (request.query.end < request.query.start){
+            // if the end date is before the start date, respond w/ an error
+            if (request.query.end < request.query.year) {
                 content.message = "End date must be greater than start date";
                 content.id = "badRequest";
                 return jsonResponses(request, response, statusCode, JSON.stringify(content));
             }
             else {
-                yearBooks = helper.findNumericRangeJSON(bookJSON, "year", request.query.start, request.query.end);
+                yearBooks = helper.findNumericRangeJSON(bookJSON, "year", request.query.year, request.query.end);
             }
         }
         else {
-            yearBooks = helper.iterateThroughJSON(bookJSON, "year", request.query.start);
+            yearBooks = helper.iterateThroughJSON(bookJSON, "year", request.query.year);
         }
 
         if (yearBooks.length != 0) {
@@ -165,47 +155,83 @@ const getGenre = (request, response) => {
 const notReal = (request, response) => {
     let message = "The page you are looking for was not found";
     let id = "notFound";
-    message = JSON.stringify({ message, id });
+    message = { message, id };
     // no real content
-    jsonResponses(request, response, 404, message);
+    jsonResponses(request, response, 404, JSON.stringify(message));
 }
 
 // adds or modifies user data and sends an appropriate response
 const addBook = (request, response) => {
-    let message = "Name and age are both required";
-    const { name, age } = request.body;
+    let statusCode = 400;
+    let message = "All fields are required";
+    let id = "missingParams";
+    let content = { message, id };
+
+    const { title, author, language, year, genre } = request.body;
 
     // responds if request is missing name or body parameters
-    if (!name || !age) {
-        const id = "missingParams";
-        message = JSON.stringify({ message, id })
-        return jsonResponses(request, response, 400, message);
+    if (title && author && language && year && genre) {
+        statusCode = 204;
+        const bookList = helper.iterateThroughJSON(bookJSON, 'title', request.query[title]);
+        // create book if it doesn't already exist
+        if (bookList.length === 0) {
+            statusCode = 201;
+            content = { title, author, language, year, genre }
+            bookJSON += content;
+        }
+        else {
+            helper.updateJSON(bookJSON, 'title', request.query[title], { title, author, language, year, genre })
+        }
+
+        // responds if a new user has been created
+        if (statusCode == 201) {
+            message = "Created successfully";
+            content = {message};
+        }
     }
 
-    let responseCode = 204;
-    // create user if they don't already exist
-    // if (!users[name]){
-    //     responseCode = 201;
-    //     users[name] = {name: name,};
-    // }
-    // users[name].age = age;
-
-    // responds if a new user has been created
-    if (responseCode == 201) {
-        message = "Created successfully";
-        message = JSON.stringify({ message });
-        return jsonResponses(request, response, responseCode, message);
-    }
     // responds if a user has been modified
-    jsonResponses(request, response, responseCode, JSON.stringify({ message }));
+    jsonResponses(request, response, statusCode, JSON.stringify(content));
+}
+
+// adds or modifies user data and sends an appropriate response
+const addReview = (request, response) => {
+    let statusCode = 400;
+    let message = "All fields are required";
+    let id = "missingParams";
+    let content = { message, id };
+
+    const { title, review } = request.body;
+
+    // responds if request is missing name or body parameters
+    if (title && review) {
+        let statusCode = 204;
+        const bookList = helper.iterateThroughJSON(bookJSON, 'title', request.query[title]);
+        // create book if it doesn't already exist
+        if (bookList.length === 0) {
+            statusCode = 404;
+            content.message = "Book not found";
+            content.id = "notFound";
+        }
+        else {
+            helper.updateJSON(bookJSON, 'title', request.query[title], { title, rating });
+            message = "Created successfully";
+            content = {message};
+        }
+    }
+
+    // responds if a user has been modified
+    jsonResponses(request, response, statusCode, JSON.stringify(content));
 }
 
 module.exports = {
     getBooks,
+    getTitle,
     getAuthor,
     getLanguage,
     getYear,
     getGenre,
     notReal,
-    addBook
+    addBook,
+    addReview
 }

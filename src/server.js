@@ -8,6 +8,7 @@ const urlStruct = {
     '/style.css': httpHandler.getCss,
     '/bundle.js': httpHandler.getBundle,
     '/getBooks': jsonHandler.getBooks,
+    '/getTitle': jsonHandler.getTitle,
     '/getAuthor': jsonHandler.getAuthor,
     '/getLanguage': jsonHandler.getLanguage,
     '/getYear': jsonHandler.getYear,
@@ -54,6 +55,9 @@ const parseBody = (request, response, handler) => {
 const handlePostRequests = (request, response, url) => {
     if (url.pathname === '/addBook') {
         parseBody(request, response, jsonHandler.addBook);
+    }
+    else if (url.pathname === '/addReview') {
+        parseBody(request, response, jsonHandler.addReview);
     }
 }
 

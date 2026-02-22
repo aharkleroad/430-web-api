@@ -30,15 +30,36 @@ const handleResponse = async (response, method) => {
     }
 }
 
+const sendGetOrHead = async (url, method) => {
+    const response = await fetch(url, {
+        method: method,
+    });
+
+    handleResponse(response, method);
+}
+
 // sends a post request to /addUser based on form data
 const sendPost = async (formName) => {
     const url = formName.getAttribute('action');
     const method = formName.getAttribute('method');
+    let formData;
     console.log(url);
 
-    const name = document.querySelector("#nameField").value;
-    const age = document.querySelector("#ageField").value;
-    const formData = JSON.stringify({ name, age });
+    if (url === '/reviewBook') {
+        const title = document.querySelector("#reviewTitleField").value;
+        const review = document.querySelector("#ratingField").value;
+        formData = JSON.stringify({ title, review });
+    }
+
+    else {
+        const title = document.querySelector("#addTitleField").value;
+        const author = document.querySelector("#addAuthorField").value;
+        const language = document.querySelector("#addLanguageField").value;
+        const year = document.querySelector("#addDateField").value;
+        const genre = document.querySelector("#addGenreField").value;
+        formData = JSON.stringify({ title, author, language, year, genre });
+    }
+
     console.log(formData);
 
     // send fetch request w/ data retrieved from form
@@ -54,59 +75,54 @@ const sendPost = async (formName) => {
     handleResponse(response, method);
 }
 
-// sends a get or head request to a given page based on form data
-const requestAllBooksData = async () => {
-    const method = document.querySelector("#allMethodSelect").value;
+const constructRequestInfo = async (paramName1 = "all", paramName2 = "") => {
+    const method = document.querySelector(`#${paramName1}MethodSelect`).value;
+    let url = '/getBooks';
+
+    // if query parameters are given, add them to the request url
+    if (paramName1 !== "all") {
+        const paramValue1 = document.querySelector(`#${paramName1}Field`).value;
+        // url = /getParam?param=paramValue
+        url = `/get${paramName1.charAt(0).toUpperCase() + paramName1.slice(1)}`;
+        if (paramValue1) {
+            url += `?${paramName1}=${paramValue1}`;
+        }
+    }
+
+    if (paramName2) {
+        const paramValue2 = document.querySelector(`#${paramName2}Field`).value;
+        if (paramValue2) {
+            url += `&${paramName2}=${paramValue2}`;
+        }
+    }
 
     // send fetch request w/ retrieved form data
-    const response = await fetch('/getBooks', {
-        method: method,
-    });
-
-    handleResponse(response, method);
+    sendGetOrHead(url, method);
 }
 
-const requestOneQueryParam = async (paramName) => {
-    const method = document.querySelector( `#${paramName}MethodSelect`).value;
-    const paramValue = document.querySelector(`#${paramName}Field`).value;
-    // url = /getParam?param=paramValue
-    const url = `/get${paramName.charAt(0).toUpperCase() + paramName.slice(1)}?${paramName}=${paramValue}`;
+// sends a get or head request to a given page based on form data
+const requestAllBooksData = async () => {
+    constructRequestInfo();
+}
 
-    // send fetch request w/ retrieved form data
-    const response = await fetch(url, {
-        method: method,
-    });
-
-    handleResponse(response, method);
+const requestTitleData = async () => {
+    constructRequestInfo('title');
 }
 
 const requestAuthorData = async () => {
-    requestOneQueryParam('author');
+    constructRequestInfo('author');
 }
 
 const requestLanguageData = async () => {
-    requestOneQueryParam('language');
+    constructRequestInfo('language');
 }
 
 const requestGenreData = async () => {
-    requestOneQueryParam('genre');
+    constructRequestInfo('genre');
 }
 
 const requestYearData = async () => {
-    const method = document.querySelector("#yearMethodSelect").value;
-    const startValue = document.querySelector(`#startField`).value;
-    const endValue = document.querySelector(`#endField`).value;
-
-    url = `/getYear?start=${startValue}`;
-    if (endValue) {
-        url += `&end=${endValue}`;
-    }
-
-    const response = await fetch(url, {
-        method: method,
-    });
-
-    handleResponse(response, method);
+    constructRequestInfo('year', 'end');
 }
 
 const cancelFormAction = (e, func) => {
@@ -118,47 +134,36 @@ const cancelFormAction = (e, func) => {
 // adds submit event listeners to both forms
 const init = () => {
     const getBooksForm = document.querySelector("#allBooksForm");
+    const getTitleForm = document.querySelector("#titleForm");
     const getAuthorForm = document.querySelector("#authorForm");
     const getLanguageForm = document.querySelector("#languageForm");
     const getYearForm = document.querySelector("#yearForm");
     const getGenreForm = document.querySelector("#genreForm");
 
     const addBookForm = document.querySelector("#addBookForm");
-    const addReviewForm = document.querySelector("#reviewForm");
-
-    const getAllBooks = (e) => {
-        cancelFormAction(e, requestAllBooksData);
-    }
-
-    const getAuthorBooks = (e) => {
-        cancelFormAction(e, requestAuthorData);
-    }
-
-    const getLanguageBooks = (e) => {
-        cancelFormAction(e, requestLanguageData);
-    }
-
-    const getYearBooks = (e) => {
-        cancelFormAction(e, requestYearData);
-    }
-
-    const getGenreBooks = (e) => {
-        cancelFormAction(e, requestGenreData);
-    }
+    const addReviewForm = document.querySelector("#reviewBookForm");
 
     const addBook = (e) => {
         e.preventDefault();
-        sendPost(addUserForm);
+        sendPost(addBookForm);
         return false;
     }
 
-    getBooksForm.addEventListener('submit', getAllBooks);
-    getAuthorForm.addEventListener('submit', getAuthorBooks);
-    getLanguageForm.addEventListener('submit', getLanguageBooks);
-    getYearForm.addEventListener('submit', getYearBooks);
-    getGenreForm.addEventListener('submit', getGenreBooks);
+    const reviewBook = (e) => {
+        e.preventDefault();
+        sendPost(addReviewForm);
+        return false;
+    }
+
+    getBooksForm.addEventListener('submit', (e) => { cancelFormAction(e, requestAllBooksData) });
+    getTitleForm.addEventListener('submit', (e) => { cancelFormAction(e, requestTitleData) });
+    getAuthorForm.addEventListener('submit', (e) => { cancelFormAction(e, requestAuthorData) });
+    getLanguageForm.addEventListener('submit', (e) => { cancelFormAction(e, requestLanguageData) });
+    getYearForm.addEventListener('submit', (e) => { cancelFormAction(e, requestYearData) });
+    getGenreForm.addEventListener('submit', (e) => { cancelFormAction(e, requestGenreData) });
 
     addBookForm.addEventListener('submit', addBook);
+    addReviewForm.addEventListener('submit', reviewBook);
 }
 
 window.onload = init;
