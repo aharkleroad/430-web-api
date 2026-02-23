@@ -155,9 +155,9 @@ const getGenre = (request, response) => {
 const notReal = (request, response) => {
     let message = "The page you are looking for was not found";
     let id = "notFound";
-    message = { message, id };
+    content = { message, id };
     // no real content
-    jsonResponses(request, response, 404, JSON.stringify(message));
+    jsonResponses(request, response, 404, JSON.stringify(content));
 }
 
 // adds or modifies user data and sends an appropriate response
@@ -167,20 +167,27 @@ const addBook = (request, response) => {
     let id = "missingParams";
     let content = { message, id };
 
-    const { title, author, language, year, genre } = request.body;
+    const { title, author, language, year, genres } = request.body;
 
     // responds if request is missing name or body parameters
-    if (title && author && language && year && genre) {
+    if (title && author && language && year && genres) {
         statusCode = 204;
-        const bookList = helper.iterateThroughJSON(bookJSON, 'title', request.query[title]);
+        const bookList = helper.iterateThroughJSON(bookJSON, "title", title);
         // create book if it doesn't already exist
         if (bookList.length === 0) {
             statusCode = 201;
-            content = { title, author, language, year, genre }
+            content = { title, author, language, year, genres };
             bookJSON.push(content);
         }
         else {
-            helper.updateJSON(bookJSON, 'title', request.query[title], { title, author, language, year, genre })
+            const bookObject = bookList[0];
+            const {review} = bookObject;
+            if (review) {
+                helper.updateJSON(bookJSON, 'title', title, { title, author, language, year, genres, review })
+            }
+            else {
+                helper.updateJSON(bookJSON, 'title', title, { title, author, language, year, genres });
+            }
         }
 
         // responds if a new user has been created
@@ -206,7 +213,7 @@ const addReview = (request, response) => {
     // responds if request is missing name or body parameters
     if (title && review) {
         statusCode = 204;
-        const bookList = helper.iterateThroughJSON(bookJSON, 'title', request.query[title]);
+        const bookList = helper.iterateThroughJSON(bookJSON, 'title', title);
         // create book if it doesn't already exist
         if (bookList.length === 0) {
             statusCode = 404;
@@ -214,8 +221,11 @@ const addReview = (request, response) => {
             content.id = "notFound";
         }
         else {
-            helper.updateJSON(bookJSON, 'title', request.query[title], { title, review });
-            message = "Created successfully";
+            const bookObject = bookList[0];
+            const {title, author, language, year, genres} = bookObject;
+
+            helper.updateJSON(bookJSON, 'title', title, { title, author, language, year, genres, review });
+            message = "Review added successfully";
             content = {message};
         }
     }

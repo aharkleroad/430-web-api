@@ -43,9 +43,8 @@ const sendPost = async (formName) => {
     const url = formName.getAttribute('action');
     const method = formName.getAttribute('method');
     let formData;
-    console.log(url);
 
-    if (url === '/reviewBook') {
+    if (url === '/addReview') {
         const title = document.querySelector("#reviewTitleField").value;
         const review = document.querySelector("#ratingField").value;
         formData = JSON.stringify({ title, review });
@@ -56,13 +55,13 @@ const sendPost = async (formName) => {
         const author = document.querySelector("#addAuthorField").value;
         const language = document.querySelector("#addLanguageField").value;
         const year = document.querySelector("#addDateField").value;
-        const genre = document.querySelector("#addGenreField").value;
-        formData = JSON.stringify({ title, author, language, year, genre });
+        const genres = document.querySelector("#addGenreField").value.split(',');
+        formData = JSON.stringify({ title, author, language, year, genres });
     }
 
     console.log(formData);
 
-    // send fetch request w/ data retrieved from form
+    // send fetch request w/ data retrieved
     const response = await fetch(url, {
         method: method,
         headers: {

@@ -1,7 +1,7 @@
 {
-  "name": "http-api-assignment-ii",
+  "name": "430-web-api",
   "version": "1.0.0",
-  "description": "Second HTTP API assignment",
+  "description": "Web api assignment",
   "homepage": "https://github.com/aharkleroad/http-api-assignment-ii#readme",
   "bugs": {
     "url": "https://github.com/aharkleroad/http-api-assignment-ii/issues"
