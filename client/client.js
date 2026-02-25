@@ -59,8 +59,6 @@ const sendPost = async (formName) => {
         formData = JSON.stringify({ title, author, language, year, genres });
     }
 
-    console.log(formData);
-
     // send fetch request w/ data retrieved
     const response = await fetch(url, {
         method: method,

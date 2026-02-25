@@ -28,6 +28,7 @@
     "@types/node": "^25.3.0",
     "eslint": "^10.0.0",
     "globals": "^17.3.0",
+    "tailwindcss": "^4.2.1",
     "ts-loader": "^9.5.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
