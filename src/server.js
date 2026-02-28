@@ -6,6 +6,7 @@ const jsonHandler = require('./jsonResponse.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
     '/': httpHandler.getIndex,
+    '/docs': httpHandler.getDoc,
     '/style.css': httpHandler.getCss,
     '/bundle.js': httpHandler.getBundle,
     '/getBooks': jsonHandler.getBooks,
@@ -14,6 +15,8 @@ const urlStruct = {
     '/getLanguage': jsonHandler.getLanguage,
     '/getYear': jsonHandler.getYear,
     '/getGenre': jsonHandler.getGenre,
+    '/addBook' : jsonHandler.addBook,
+    '/addReview': jsonHandler.addReview,
     default: jsonHandler.notReal
 }
 
@@ -40,7 +43,7 @@ const parseBody = (request, response, handler) => {
         if (request.headers['content-type'] === 'application/json'){
             request.body = JSON.parse(bodyString);
         }
-        else if(type === 'application/x-www-form-urlencoded') {
+        else if(request.headers['content-type'] === 'application/x-www-form-urlencoded') {
             request.body = query.parse(bodyString);
             console.log(request.body);
         }
@@ -63,6 +66,9 @@ const handlePostRequests = (request, response, url) => {
     }
     else if (url.pathname === '/addReview') {
         parseBody(request, response, jsonHandler.addReview);
+    }
+    else {
+        urlStruct.default(request, response);
     }
 }
 

@@ -12,6 +12,25 @@ const config: webpack.Configuration = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.css$/, // only accept filenames with ends of `.css`
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "@tailwindcss/postcss",
+                                    ],
+                                ],
+                            },
+                        },
+                    },
+                ],
+            },
         ],
     },
     resolve: {

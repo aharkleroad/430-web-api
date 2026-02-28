@@ -155,7 +155,7 @@ const getGenre = (request, response) => {
 const notReal = (request, response) => {
     let message = "The page you are looking for was not found";
     let id = "notFound";
-    content = { message, id };
+    let content = { message, id };
     // no real content
     jsonResponses(request, response, 404, JSON.stringify(content));
 }

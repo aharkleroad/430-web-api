@@ -2,111 +2,200 @@
 <html lang="en">
 
 <head>
-  <title>Our simple HTTP server</title>
+  <title>Book API Testing</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script src="/bundle.js"></script>
 </head>
 
 <body>
-  <section id="top">
-    <h3>Book API Test App</h3>
-    <form id="allBooksForm" action="/getBooks" method="get">
-      <select id="allMethodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Books" />
-    </form>
+  <main>
+    <h1>Book API Endpoint Testing</h1>
+    <a href="/docs">Click here to read the documentation</a>
+    <section id="allBooksSec" class="m-8">
+      <h2>/getBooks</h2>
+      <form id="allBooksForm" action="/getBooks" method="get">
+        <span>
+        <label for="allMethodSelect">Request Type: </label>
+        <select id="allMethodSelect" name="allMethodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        </span>
+        <input class="submit-button" type="submit" value="Get All Books" />
 
-    <form id="titleForm" action="/getTitle" method="get">
-      <label for="title">Title: </label>
-      <input id="titleField" type="text" name="title" />
+      </form>
+      <section id="allContent">
+      </section>
+    </section>
 
-      <select id="titleMethodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Title" />
-    </form>
+    <section id="titleSearchSec">
+      <h2>/getTitle</h2>
+      <form id="titleForm" action="/getTitle" method="get">
+        <span>
+        <label for="title">Title: </label>
+        <input id="titleField" type="text" name="title" />
+        </span>
 
-    <form id="authorForm" action="/getAuthor" method="get">
-      <label for="author">Author: </label>
-      <input id="authorField" type="text" name="author" />
+        <span>
+        <label for="titleMethodSelect">Request Type: </label>
+        <select id="titleMethodSelect" name="titleMethodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        </span>
 
-      <select id="authorMethodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Author" />
-    </form>
+        <input type="submit" class="submit-button" value="Get Books by Title" />
+      </form>
+      <section id="titleContent">
+      </section>
+    </section>
 
-    <form id="yearForm" action="/getYear" method="get">
-      <label for="year">Start (or Only) Year: </label>
-      <input id="yearField" type="number" name="year" min="-3000" max="2026" step="1" />
+    <section id="authorSearchSec">
+      <h2>/getAuthor</h2>
+      <form id="authorForm" action="/getAuthor" method="get">
+        <span>
+        <label for="author">Author: </label>
+        <input id="authorField" type="text" name="author" />
+        </span>
 
-      <label for="end">End Year: </label>
-      <input id="endField" type="number" name="end" min="-2999" max="2026" step="1" />
+        </span>
+        <label for="authorMethodSelect">Request Type: </label>
+        <select id="authorMethodSelect" name="authorMethodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        </span>
+        <input type="submit" class="submit-button" value="Get Books by Author" />
 
-      <select id="yearMethodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Year" />
-    </form>
+      </form>
+      <section id="authorContent">
+      </section>
+    </section>
 
-    <form id="genreForm" action="/getGenre" method="get">
-      <label for="genre">Genre: </label>
-      <input id="genreField" type="text" name="genre" />
+    <section id="yearSearchSec">
+      <h2>/getYear</h2>
+      <form id="yearForm" action="/getYear" method="get">
+        <span>
+        <label for="year">Start (or Only) Year: </label>
+        <input id="yearField" type="number" name="year" min="-3000" max="2026" step="1" />
+        </span>
 
-      <select id="genreMethodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Genre" />
-    </form>
+        <span>
+        <label for="end">End Year: </label>
+        <input id="endField" type="number" name="end" min="-2999" max="2026" step="1" />
+        </span>
 
-    <form id="languageForm" action="/getLanguage" method="get">
-      <label for="language">Language: </label>
-      <input id="languageField" type="text" name="language" />
+        <span>
+        <label for="yearMethodSelect">Request Type: </label>
+        <select id="yearMethodSelect" name="yearMethodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        </span>
+        <input type="submit" class="submit-button" value="Get Books by Year" />
 
-      <select id="languageMethodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Get Language" />
-    </form>
+      </form>
+      <section id="yearContent">
+      </section>
+    </section>
 
-    <form id="addBookForm" action="/addBook" method="POST">
-      <label for="title">Title: </label>
-      <input id="addTitleField" type="text" name="title" />
+    <section id="genreSearchSec">
+      <h2>/getGenre</h2>
+      <span>
+      <form id="genreForm" action="/getGenre" method="get">
+        <label for="genre">Genre: </label>
+        <input id="genreField" type="text" name="genre" />
+        </span>
 
-      <label for="author">Author: </label>
-      <input id="addAuthorField" type="text" name="author" />
+        <span>
+         <label for="genreMethodSelect">Request Type: </label> 
+        <select id="genreMethodSelect" name="genreMethodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        </span>
+        <input class="submit-button" type="submit" value="Get Books by Genre" />
 
-      <label for="language">Language: </label>
-      <input id="addLanguageField" type="text" name="language" />
+      </form>
+      <section id="genreContent">
+      </section>
+    </section>
 
-      <label for="date">Date Published: </label>
-      <input id="addDateField" type="number" name="date" min="-3000" max="2026" step="1" />
+    <section id="langSearchSec">
+      <h2>/getLanguage</h2>
+      <form id="languageForm" action="/getLanguage" method="get">
+        <span>
+        <label for="language">Language: </label>
+        <input id="languageField" type="text" name="language" />
+        </span>
 
-      <label for="genre">Genre: </label>
-      <input id="addGenreField" type="text" name="genre" />
+        </span>
+        <label for="languageMethodSelect">Request Type: </label>
+        <select id="languageMethodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        </span>
+        <input class="submit-button" type="submit" value="Get Books by Language" />
 
-      <input type="submit" value="Add Book" />
-    </form>
+      </form>
+      <section id="langContent">
+      </section>
+    </section>
 
-    <form id="reviewBookForm" action="/addReview" method="POST">
-      <label for="title">Title: </label>
-      <input id="reviewTitleField" type="text" name="title" />
+    <section id="addBookSec">
+      <h2>/addBook</h2>
+      <form id="addBookForm" action="/addBook" method="POST">
+        <span>
+        <label for="title">Title: </label>
+        <input id="addTitleField" type="text" name="title" />
+        </span>
 
-      <label for="rating">Rating: </label>
-      <input id="ratingField" type="number" name="rating" min="0" max="10" step="0.5" />
+        <span>
+        <label for="author">Author: </label>
+        <input id="addAuthorField" type="text" name="author" />
+        </span>
 
-      <input type="submit" value="Review Book" />
-    </form>
-  </section>
-  <section id="content">
-  </section>
+        <span>
+        <label for="language">Language: </label>
+        <input id="addLanguageField" type="text" name="language" />
+        </span>
+
+        <span>
+        <label for="date">Date Published: </label>
+        <input id="addDateField" type="number" name="date" min="-3000" max="2026" step="1" />
+        </span>
+
+        <span>
+        <label for="genre">Genre: </label>
+        <input id="addGenreField" type="text" name="genre" />
+        </span>
+        <input type="submit" class="submit-button" value="Add Book" />
+
+      </form>
+      <section id="addBookContent">
+      </section>
+    </section>
+
+    <section id="reviewBookSec">
+      <h2>/addReview</h2>
+      <form id="reviewBookForm" action="/addReview" method="POST">
+        <span>
+        <label for="title">Title: </label>
+        <input id="reviewTitleField" type="text" name="title" />
+        </span>
+
+        <span>
+        <label for="rating">Rating: </label>
+        <input id="ratingField" type="number" name="rating" min="0" max="10" step="0.5" />
+        </span>
+
+        <input class="submit-button" type="submit" value="Review Book" />
+      </form>
+      <section id="reviewBookContent">
+      </section>
+    </section>
+  </main>
 </body>
 
 </html>

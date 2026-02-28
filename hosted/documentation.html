@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Book API Documentation</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+  <main>
+    <h1>Book API Documentation</h1>
+    <a href="/">Click here to test the endpoints</a>
+
+    <section id="allBooksSec">
+      <h2>/getBooks Endpoint</h2>
+      <section id="allContent">
+        <p>
+          <span>Description: </span>
+          Returns a json object containing all of the books within the dataset.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          GET or HEAD
+          </p>
+        <p>
+          <span>Format:</span> 
+          C
+        </p>
+      </section>
+    </section>
+
+    <section id="titleSearchSec">
+      <h2>/getTitle Endpoint</h2>
+      <section id="titleContent">
+        <p>
+          <span>Description: </span>
+          Returns a json object containing all of the books with a given title. Each book in the dataset must
+          have a unique title, so only 1 or 0 books will ever be returned.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          GET or HEAD
+          </p>
+        <p>
+          <span>Format:</span> 
+          C
+        </p>
+      </section>
+    </section>
+
+    <section id="authorSearchSec">
+      <h2>/getAuthor Endpoint</h2>
+      <section id="authorContent">
+        <p>
+          <span>Description: </span>
+          Returns a json object containing all of the books with a given author.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          GET or HEAD
+          </p>
+        <p>
+          <span>Format:</span> 
+          C
+        </p>
+      </section>
+    </section>
+
+    <section id="yearSearchSec">
+      <h2>/getYear Endpoint</h2>
+      <section id="yearContent">
+        <p>
+          <span>Description: </span>
+          Returns a json object containing all the books published in a given year or year range.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          GET or HEAD
+          </p>
+        <p>
+          <span>Format:</span> 
+          A year should be positive if it is AD or negative if it is BC.
+        </p>
+      </section>
+    </section>
+
+    <section id="genreSearchSec">
+      <h2>/getGenre Endpoint</h2>
+      <section id="genreContent">
+        <p>
+          <span>Description: </span>
+          Returns a json object containing all the books of a specific genre or combination of genres.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          GET or HEAD
+          </p>
+        <p>
+          <span>Format:</span>
+          C
+        </p>
+      </section>
+    </section>
+
+    <section id="langSearchSec">
+      <h2>/getLanguage Endpoint</h2>
+      <section id="langContent">
+        <p>
+          <span>Description: </span>
+          Returns a json object containing all books written in a given language.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          GET or HEAD
+          </p>
+        <p>
+          <span>Format:</span> 
+          C
+        </p>
+      </section>
+    </section>
+
+    <section id="addBookSec">
+      <h2>/addBook Endpoint</h2>
+      <section id="addBookContent">
+        <p>
+          <span>Description: </span>
+          Adds a book with a provided title, author, publication date, language, and given genres to the dataset.
+          This data is not persisted and will not be saved after the session ends.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          POST
+          </p>
+        <p>
+          <span>Format:</span> 
+          C
+        </p>
+      </section>
+    </section>
+
+    <section id="reviewBookSec">
+      <h2>/addReview Endpoint</h2>
+      <section id="reviewBookContent">
+        <p>
+          <span>Description: </span>
+          Adds a numerical rating to a book that already exists within the dataset. 
+          This data is not persisted and will not be saved after the session ends.
+        </p>
+        <p>
+          <span>Accepted Request Type(s): </span>
+          POST
+          </p>
+        <p>
+          <span>Format:</span> 
+          C
+        </p>
+      </section>
+    </section>
+  </main>
+</body>
+
+</html>
