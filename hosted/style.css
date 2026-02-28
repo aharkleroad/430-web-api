@@ -1,5 +1,5 @@
 html, body {
-  width: 90%;
+  width: 90vw;
   margin: 1rem;
   padding: 1rem;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -35,5 +35,13 @@ p span {
   display: block;
   margin: 0.5rem;
   padding: 0.2rem;
+}
+
+.printed-content {
+  width: 85vw;
+  height: fit-content;
+  margin: 0.25rem, 0.5rem;
+  padding: 0.25rem;
+  background-color: antiquewhite;
 }
 

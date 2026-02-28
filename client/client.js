@@ -1,33 +1,51 @@
 // adds info to index page (after a request has been made) based on the response it recieves
-const handleResponse = async (response, method) => {
-    const content = document.querySelector("#content");
+const handleResponse = async (response, method, url) => {
+    // removes query parameters from the url, if they exist
+    url = url.split('?')[0];
 
-    switch (response.status) {
-        case 200:
-            content.innerHTML = '<b>Success</b>';
+    let content;
+    switch (url) {
+        case "/getBooks":
+            content = document.querySelector("#allContent");
             break;
-        case 204:
-            content.innerHTML = '<b>Updated (No Content)</b>';
+        case "/getTitle":
+            content = document.querySelector("#titleContent");
             break;
-        case 201:
-            content.innerHTML = '<b>Created</b>';
+        case "/getAuthor":
+            content = document.querySelector("#authorContent");
             break;
-        case 400:
-            content.innerHTML = '<b>Bad Request</b>';
+        case "/getLanguage":
+            content = document.querySelector("#langContent");
             break;
-        case 404:
-            content.innerHTML = '<b>Not Found</b>';
+        case "/getYear":
+            content = document.querySelector("#yearContent");
+            break;
+        case "/getGenre":
+            content = document.querySelector("#genreContent");
+            break;
+        case "/addBook":
+            content = document.querySelector("#addBookContent");
+            break;
+        case "/addReview":
+            content = document.querySelector("#reviewBookContent");
             break;
         default:
-            content.innerHTML = '<b>Error code not implemented</b>';
+            content = document.querySelector("#allContent");
+            console.log("Unhandled url")
             break;
     }
+
+    let contentString = `<section class="printed-content"><p><span>Status Code:</span> ${response.status}</p>`;
+    contentString += `<p><span>Content Length:</span> ${response.headers.get("Content-Length")}</p>`;
 
     // only gets the response body (and displays something from it) if the response has a body
     if (method === "get" || (method === "post" && response.status !== 204)) {
         const responseText = await response.json();
-        content.innerHTML += `<p>${JSON.stringify(responseText)}</p>`;
+        contentString += `<p><span>Response Contents:</span> ${JSON.stringify(responseText)}</p>`;
     }
+    contentString += `</section>`;
+
+    content.innerHTML = contentString;
 }
 
 const sendGetOrHead = async (url, method) => {
@@ -35,7 +53,7 @@ const sendGetOrHead = async (url, method) => {
         method: method,
     });
 
-    handleResponse(response, method);
+    handleResponse(response, method, url);
 }
 
 // sends a post request to /addUser based on form data
@@ -69,7 +87,7 @@ const sendPost = async (formName) => {
         body: formData,
     });
 
-    handleResponse(response, method);
+    handleResponse(response, method, url);
 }
 
 const constructRequestInfo = async (paramName1 = "all", paramName2 = "") => {
