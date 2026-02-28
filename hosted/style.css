@@ -1,21 +1,39 @@
 html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  width: 90%;
+  margin: 1rem;
+  padding: 1rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-#top {
-  text-align: center;
-  margin: 0 auto;
+h1 {
+  padding: 0rem, 0rem, 0.5rem, 0rem;
+  margin: 0rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#top h1 {
-  font-size: 2em;
+a {
+  padding-bottom: 1rem;
 }
 
-#content {
-  margin-top: 100px;
-  font-size: 2em;
-  text-align: center;
+body section {
+  margin: 1rem, 2rem;
+  padding: 0.25rem;
+  background-color: burlywood;
+  border-radius: 7px;
 }
+
+form span {
+  display: inline-block;
+  margin-right: 1.5rem;
+}
+
+p span {
+  font-weight: bold;
+}
+
+.submit-button {
+  display: block;
+  margin: 0.5rem;
+  padding: 0.2rem;
+}
+

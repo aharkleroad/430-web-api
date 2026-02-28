@@ -4,33 +4,14 @@ import webpack from "webpack";
 import "webpack-dev-server";
 
 const config: webpack.Configuration = {
-    entry: "./src/index.ts",
+    entry: "./client/client.ts",
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: "ts-loader",
                 exclude: /node_modules/,
-            },
-            {
-                test: /\.css$/, // only accept filenames with ends of `.css`
-                use: [
-                    "style-loader",
-                    "css-loader",
-                    {
-                        loader: "postcss-loader",
-                        options: {
-                            postcssOptions: {
-                                plugins: [
-                                    [
-                                        "@tailwindcss/postcss",
-                                    ],
-                                ],
-                            },
-                        },
-                    },
-                ],
-            },
+            }
         ],
     },
     resolve: {
