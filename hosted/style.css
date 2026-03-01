@@ -3,28 +3,39 @@ html, body {
   margin: 1rem;
   padding: 1rem;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: whitesmoke;
 }
 
 h1 {
-  padding: 0rem, 0rem, 0.5rem, 0rem;
+  padding: 0rem 0rem 0.5rem 0rem;
   margin: 0rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
-  padding-bottom: 1rem;
+  margin-bottom: 6rem;
+  margin-left: 1rem;
 }
 
-body section {
-  margin: 1rem, 2rem;
-  padding: 0.25rem;
-  background-color: burlywood;
+main section {
+  margin: 1rem auto;
+  padding: 0.1rem 0rem 0rem 0rem;
+  background-color: cadetblue;
   border-radius: 7px;
+}
+
+h2 {
+  margin: 1rem 1rem 0.3rem 1rem;
+}
+
+form {
+  margin: 1.5rem 1rem 1rem 1.5rem;
 }
 
 form span {
   display: inline-block;
   margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 p span {
@@ -33,16 +44,40 @@ p span {
 
 .submit-button {
   display: block;
-  margin: 0.5rem;
+  margin: 0.5rem 0;
   padding: 0.2rem;
+  border-radius: 2px;
+  border-width: 2px;
 }
 
 .printed-content {
-  width: 85vw;
+  width: 87vw;
   height: fit-content;
-  margin: 0.25rem, 0.5rem;
+  margin: 0.25rem auto 1rem auto;
   padding: 0.25rem;
-  background-color: antiquewhite;
+  background-color: rgb(186, 219, 202);
+}
+
+.printed-content p {
+  margin: 1rem 0.5rem;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+  background-color: rgb(186, 219, 202);
+}
+
+.description {
+  width: 90vw;
+  height: fit-content;
+  margin: 1rem 0rem;
+  padding: 0.25rem -0.25rem 2rem 0.25rem;
+  background-color: rgb(186, 219, 202);
+  border-radius: 0px;
+}
+
+.description p {
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .printed-content p {
@@ -52,8 +87,12 @@ p span {
 
 button {
   position: sticky;
-  left: 85vw;
+  left: 110vw;
   top: 90vh;
-  padding: 0.2rem;
+  padding: 0.4rem;
+  font-size: medium;
+  border-radius: 4px;
+  box-shadow: 5px 5px 6px 2px rgb(0 0 0 / 60% );
+  background-color: paleturquoise;
 }
 
