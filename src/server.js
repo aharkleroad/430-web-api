@@ -45,7 +45,6 @@ const parseBody = (request, response, handler) => {
         }
         else if(request.headers['content-type'] === 'application/x-www-form-urlencoded') {
             request.body = query.parse(bodyString);
-            console.log(request.body);
         }
         else {
             response.writeHead(400, {

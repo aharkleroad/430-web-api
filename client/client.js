@@ -158,6 +158,8 @@ const init = () => {
     const addBookForm = document.querySelector("#addBookForm");
     const addReviewForm = document.querySelector("#reviewBookForm");
 
+    const clearButton = document.querySelector('#clearAllContent')
+
     const addBook = (e) => {
         e.preventDefault();
         sendPost(addBookForm);
@@ -170,6 +172,13 @@ const init = () => {
         return false;
     }
 
+    const clearPage = () => {
+        const contentSections = document.querySelectorAll(".content");
+        contentSections.forEach(section => {
+            section.innerHTML = '';
+        });
+    }
+
     getBooksForm.addEventListener('submit', (e) => { cancelFormAction(e, requestAllBooksData) });
     getTitleForm.addEventListener('submit', (e) => { cancelFormAction(e, requestTitleData) });
     getAuthorForm.addEventListener('submit', (e) => { cancelFormAction(e, requestAuthorData) });
@@ -179,6 +188,8 @@ const init = () => {
 
     addBookForm.addEventListener('submit', addBook);
     addReviewForm.addEventListener('submit', reviewBook);
+
+    clearButton.addEventListener('click', clearPage);
 }
 
 window.onload = init;

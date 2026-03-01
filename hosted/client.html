@@ -11,6 +11,7 @@
   <main>
     <h1>Book API Endpoint Testing</h1>
     <a href="/docs">Click here to read the documentation</a>
+    <button id="clearAllContent">Clear Page Contents</button>
     <section id="allBooksSec" class="m-8">
       <h2>/getBooks</h2>
       <form id="allBooksForm" action="/getBooks" method="get">
@@ -24,7 +25,7 @@
         <input class="submit-button" type="submit" value="Get All Books" />
 
       </form>
-      <section id="allContent">
+      <section id="allContent" class="content">
       </section>
     </section>
 
@@ -46,7 +47,7 @@
 
         <input type="submit" class="submit-button" value="Get Books by Title" />
       </form>
-      <section id="titleContent">
+      <section id="titleContent" class="content">
       </section>
     </section>
 
@@ -68,7 +69,7 @@
         <input type="submit" class="submit-button" value="Get Books by Author" />
 
       </form>
-      <section id="authorContent">
+      <section id="authorContent" class="content">
       </section>
     </section>
 
@@ -95,7 +96,7 @@
         <input type="submit" class="submit-button" value="Get Books by Year" />
 
       </form>
-      <section id="yearContent">
+      <section id="yearContent" class="content">
       </section>
     </section>
 
@@ -117,7 +118,7 @@
         <input class="submit-button" type="submit" value="Get Books by Genre" />
 
       </form>
-      <section id="genreContent">
+      <section id="genreContent" class="content">
       </section>
     </section>
 
@@ -139,7 +140,7 @@
         <input class="submit-button" type="submit" value="Get Books by Language" />
 
       </form>
-      <section id="langContent">
+      <section id="langContent" class="content">
       </section>
     </section>
 
@@ -173,7 +174,7 @@
         <input type="submit" class="submit-button" value="Add Book" />
 
       </form>
-      <section id="addBookContent">
+      <section id="addBookContent" class="content">
       </section>
     </section>
 
@@ -192,7 +193,7 @@
 
         <input class="submit-button" type="submit" value="Review Book" />
       </form>
-      <section id="reviewBookContent">
+      <section id="reviewBookContent" class="content">
       </section>
     </section>
   </main>
