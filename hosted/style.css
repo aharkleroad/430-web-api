@@ -1,7 +1,4 @@
 html, body {
-  width: 90vw;
-  margin: 1rem;
-  padding: 1rem;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   background-color: whitesmoke;
 }
@@ -10,6 +7,12 @@ h1 {
   padding: 0rem 0rem 0.5rem 0rem;
   margin: 0rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+section, h1, a {
+  width: 90vw;
+  margin: 1rem 1rem 0.5rem 1rem;
+  padding: 1rem;
 }
 
 a {
@@ -22,6 +25,10 @@ main section {
   padding: 0.1rem 0rem 0rem 0rem;
   background-color: cadetblue;
   border-radius: 7px;
+}
+
+.main-sec {
+  padding-bottom: 0.1rem;
 }
 
 h2 {
@@ -59,7 +66,7 @@ p span {
 }
 
 .printed-content p {
-  margin: 1rem 0.5rem;
+  margin: 1rem 0.5rem 0rem 0.5rem;
   padding: 0.25rem;
   margin-bottom: 1rem;
   background-color: rgb(186, 219, 202);
@@ -69,15 +76,24 @@ p span {
   width: 90vw;
   height: fit-content;
   margin: 1rem 0rem;
-  padding: 0.25rem -0.25rem 2rem 0.25rem;
+  padding: 0rem -0.25rem 2rem 0.25rem;
   background-color: rgb(186, 219, 202);
   border-radius: 0px;
 }
 
 .description p {
-  padding-bottom: 2rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  padding-bottom: 0;
+  margin-bottom: 0.25rem;
+}
+
+.textContent {
+    position: relative;
+    bottom: 0.25rem;
+    padding-bottom: 1rem;
+    padding-top: -1rem;
+    background-color: rgb(186, 219, 202);
 }
 
 .printed-content p {
@@ -87,12 +103,28 @@ p span {
 
 button {
   position: sticky;
-  left: 110vw;
-  top: 90vh;
+  left: 84vw;
+  bottom: 8vh;
   padding: 0.4rem;
   font-size: medium;
   border-radius: 4px;
   box-shadow: 5px 5px 6px 2px rgb(0 0 0 / 60% );
-  background-color: paleturquoise;
+  background-color: honeydew;
+}
+
+section ul {
+  margin-top: 0rem;
+  padding-top: 0rem;
+  margin-left: 0.5rem;
+}
+
+li {
+  margin-top: 0rem;
+  padding-top: 0.5rem;
+  margin-right: 1rem;
+}
+
+ul li ul li {
+  padding-top: 0.25rem;
 }
 

@@ -14,147 +14,257 @@
     <section id="allBooksSec">
       <h2>/getBooks Endpoint</h2>
       <section id="allContent" class="description">
-        <p>
-          <span>Description: </span>
-          Returns a json object containing all of the books within the dataset.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          GET or HEAD
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Returns an array of json book objects, containing all of the books within the dataset.
           </p>
-        <p>
-          <span>Format:</span> 
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            GET or HEAD
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Query Parameters</li>
+            <ul>
+              <li>None</li>
+            </ul>
+            <li>Request - /getBooks</li>
+            <li>Result - [{"author": "Author", "country": "Country", "language": "Language", "link": "Link", "pages": number, "title":
+              "Title", "year": number, "genres": ["genre"], "review"?: number}]</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="titleSearchSec">
       <h2>/getTitle Endpoint</h2>
       <section id="titleContent" class="description">
-        <p>
-          <span>Description: </span>
-          Returns a json object containing all of the books with a given title. Each book in the dataset must
-          have a unique title, so only 1 or 0 books will ever be returned.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          GET or HEAD
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Returns an array of json book objects containing all of the books with a given title. 
+            Each book in the dataset must have a unique title, so the array will only ever contain 0 or 1
+            book.
           </p>
-        <p>
-          <span>Format:</span> 
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            GET or HEAD
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Query Parameters
+              <ul>
+                <li>title (string): The name of the book</li>
+              </ul>
+            </li>
+            <li>Request - /getTitle?title=title1</li>
+            <li>Result - [{"author": "Author1", "country": "Country1", "language": "Language1", "link": "Link1", "pages": 734, "title":
+              "Title1", "year": 1876, "genres;: ["Genre1","Genre2"]}]</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="authorSearchSec">
       <h2>/getAuthor Endpoint</h2>
       <section id="authorContent" class="description">
-        <p>
-          <span>Description: </span>
-          Returns a json object containing all of the books with a given author.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          GET or HEAD
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Returns an array of json book objects containing all of the books by a given author.
           </p>
-        <p>
-          <span>Format:</span> 
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            GET or HEAD
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Query Parameters
+              <ul>
+                <li>author (string): The author of the book</li>
+              </ul>
+            </li>
+            <li>Request - /getAuthor?author=author1</li>
+            <li>Result - [{"author": "Author1", "country": "Country1", "language": "Language1", "link": "Link1", "pages": 865, "title":
+              "Title1", "year": 1876, "genres": ["Genre1","Genre2"]}]</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="yearSearchSec">
       <h2>/getYear Endpoint</h2>
       <section id="yearContent" class="description">
-        <p>
-          <span>Description: </span>
-          Returns a json object containing all the books published in a given year or year range.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          GET or HEAD
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Returns an array of json book objects containing all the books published in a given year or year range.
+            The year should be positive if it is AD or negative if it is BC.
           </p>
-        <p>
-          <span>Format:</span> 
-          A year should be positive if it is AD or negative if it is BC.
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            GET or HEAD
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Query Parameters
+              <ul>
+                <li>year (number): The year a book was published or the starting year of a range in which a book was published
+                </li>
+                <li>end (number)(optional): The ending year of a range in which a book was published. Must be after the start
+                  year
+                </li>
+              </ul>
+            </li>
+            <li>Request - /getYear?year=1845 or /getYear?year=1800&end=1850 </li>
+            <li>Result - [{"author": "Author1", "country": "Country1", "language": "Language1", "link": "Link1", "pages": 236, "title":
+              "Title1", "year": 1845, "genres": ["Genre1"], "review": 6.5}]</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="genreSearchSec">
       <h2>/getGenre Endpoint</h2>
       <section id="genreContent" class="description">
-        <p>
-          <span>Description: </span>
-          Returns a json object containing all the books of a specific genre or combination of genres.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          GET or HEAD
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Returns an array of json book objects containing all the books of a specific genre or combination of genres.
           </p>
-        <p>
-          <span>Format:</span>
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            GET or HEAD
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Query Parameters
+              <ul>
+                <li>
+                  genre (string): The genre or genres of a book in a comma-separated list.
+                </li>
+              </ul>
+            </li>
+            <li>Request - /getGenre?genre=Genre1 or /getGenre?genre=Genre1,Genre2</li>
+            <li>Result - [{"author": "Author1", "country": "Country1", "language": "Language1", "link": "Link1", "pages": 236, "title":
+              "Title1", "year": 1845, "genres": ["Genre1","Genre2"]}]</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="langSearchSec">
       <h2>/getLanguage Endpoint</h2>
       <section id="langContent" class="description">
-        <p>
-          <span>Description: </span>
-          Returns a json object containing all books written in a given language.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          GET or HEAD
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Returns an array of json book objects containing all books written in a given language.
           </p>
-        <p>
-          <span>Format:</span> 
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            GET or HEAD
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Query Parameters
+              <ul>
+                <li>language (string): The language the book was originally written in</li>
+              </ul>
+            </li>
+            <li>Request - /getLanguage?language=language1</li>
+            <li>Result - [{"author": "Author1", "country": "Country1", "language": "Language1", "link": "Link1", "pages": 865, "title":
+              "Title1", "year": 1876, "genres": ["Genre1"], "review": 2}]</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="addBookSec">
       <h2>/addBook Endpoint</h2>
       <section id="addBookContent" class="description">
-        <p>
-          <span>Description: </span>
-          Adds a book with a provided title, author, publication date, language, and given genres to the dataset.
-          This data is not persisted and will not be saved after the session ends.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          POST
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Adds a book with a provided title, author, publication date, language, and given genres to the dataset or modifies 
+            the data of the book with the given title, if one already exists.
+            This data is not persisted and will not be saved after the session ends.
           </p>
-        <p>
-          <span>Format:</span> 
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            POST
+          </p>
+          <p>
+            <span>Supported Body Formats: </span>
+            application/json and application/x-www-form-urlencoded
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Body Parameters
+              <ul>
+                <li>title (string): The name of the book</li>
+                <li>author (string): The author of the book</li>
+                <li>language (string): The language the book was originally written in</li>
+                <li>year (number): The year the book was published</li>
+                <li>genres (string[]): The genre or genres of a book in a comma-separated array</li>
+              </ul>
+            </li>
+            <li>Request - /addBook</li>
+            <li>Request Body - {"author": "Author1", "language": "Language1", "title": "Title1", "year": 1845, "genres": ["Genre1","Genre2"]}</li>
+            <li>Result - {"author": "Author1", "language": "Language1", "title": "Title1", "year": 1845, "genres": ["Genre1","Genre2"]}</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
 
     <section id="reviewBookSec">
       <h2>/addReview Endpoint</h2>
       <section id="reviewBookContent" class="description">
-        <p>
-          <span>Description: </span>
-          Adds a numerical rating to a book that already exists within the dataset. 
-          This data is not persisted and will not be saved after the session ends.
-        </p>
-        <p>
-          <span>Accepted Request Type(s): </span>
-          POST
+        <section class="textContent">
+          <p>
+            <span>Description: </span>
+            Adds a numerical rating to a book that already exists within the dataset.
+            This data is not persisted and will not be saved after the session ends.
           </p>
-        <p>
-          <span>Format:</span> 
-          C
-        </p>
+          <p>
+            <span>Accepted Request Type(s): </span>
+            POST
+          </p>
+          <p>
+            <span>Supported Body Formats: </span>
+            application/json and application/x-www-form-urlencoded
+          </p>
+          <p>
+            <span>Format:</span>
+          <ul>
+            <li>Body Parameters
+              <ul>
+                <li>title (string): The year a book was published or the starting year of a range in which a book was published</li>
+                <li>review (number): A numerical rating of the book from 0-10 with increments of 0.5</li>
+              </ul>
+            </li>
+            <li>Request - /addReview</li>
+            <li>Request Body - {"title": "Title1", "review": 5.5}</li>
+            <li>Result - {"author": "Author1", "country": "Country1", "language": "Language1", "link": "Link1", "pages": 865, "title":
+              "Title1", "year": 1876, genres: ["Genre1"], "review": 5.5}</li>
+          </ul>
+          </p>
+        </section>
       </section>
     </section>
   </main>
